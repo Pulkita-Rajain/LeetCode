@@ -1,23 +1,20 @@
 class Solution {
     public int maxProduct(int[] nums) {
-        int maxProduct = nums[0];
+         int pre = 1, suff = 1;
+        int ans = Integer.MIN_VALUE;
+        int n = nums.length;
 
-        // Generate all possible subarrays
-        for (int i = 0; i < nums.length; i++) {
+        for (int i = 0; i < n; i++) {
 
-            int product = 1;
+            if (pre == 0) pre = 1;
+            if (suff == 0) suff = 1;
 
-            for (int j = i; j < nums.length; j++) {
+            pre = pre * nums[i];
+            suff = suff * nums[n - i - 1];
 
-                product = product * nums[j];
-
-                // Update maximum product
-                if (product > maxProduct) {
-                    maxProduct = product;
-                }
-            }
+            ans = Math.max(ans, Math.max(pre, suff));
         }
 
-        return maxProduct;
+        return ans;
     }
 }
